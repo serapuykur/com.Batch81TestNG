@@ -9,22 +9,23 @@ import org.openqa.selenium.opera.OperaDriver;
 
 import java.time.Duration;
 
-public class Driver {
-private Driver(){
+public class CrossDriver {
+    private CrossDriver(){
 
-}
+    }
     static WebDriver driver;
 
-    /*
-   Testlerimizi calistirdigimizda her seferinde yeni driver olusturdugumuz icin
-   her test methodu icin yeni bir pencere(driver)aciyor eger drivere bir deger atanmamissa
-   yani driver==null ise  bir kere driveri calistir diyerek bir kere if icini calistiracak
-   ve driver artik bir kere calistigi iicn ve deger atandigi icin null olmayacak ve direk return edecek
-   ve diger testlerimiz ayni pencere (driver )uzerinde calisacak
-     */
-    public static WebDriver getDriver() {
+
+    public static WebDriver getDriver(String browser) {
+        //eger browsere bir deger atanmamissa propertis dosyasindaki  browser calisir
+        browser=browser==null ? ConfigReader.getProperty("browser") : browser;
+
+        //testlerimizi xml fileden farkli browserlar ile calistirabilmek icin getDriver()methoduna
+        //paramatre atamamiz gerekir
         if (driver == null) {
-            switch (ConfigReader.getProperty("browser")){
+            switch (browser){
+                //CrossBrowser icin bizim gonderdigimiz browser uzerinden calismasi icin buraya
+                // buraya paramartre olarak girdigimiz degeri yazdik
                 case"chrome"  :
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
@@ -37,9 +38,9 @@ private Driver(){
                     WebDriverManager.operadriver().setup();
                     driver=new OperaDriver();
                 case"headless-chrome":
-                WebDriverManager.chromedriver().setup();
-                driver=new ChromeDriver(new ChromeOptions().setHeadless(true));
-                break;
+                    WebDriverManager.chromedriver().setup();
+                    driver=new ChromeDriver(new ChromeOptions().setHeadless(true));
+                    break;
                 default:
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
@@ -54,7 +55,7 @@ private Driver(){
 
     public static void closeDriver() {
         if (driver != null) {//drivere deger atanmissa kapat
-         driver.close();
+            driver.close();
             driver = null;//kapandiktan sonraki acmalari garanti altina almak icin driveri tekrr null yaptik
         }
     }
@@ -63,5 +64,6 @@ private Driver(){
             driver.quit();
         driver=null;
     }
+
 
 }

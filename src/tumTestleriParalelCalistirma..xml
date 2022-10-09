@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="alltests" verbose="3" parallel="classes" thread-count="3">
+
+    <test name="regression">
+        <packages>
+            <package name="tests.*"/>
+        </packages>
+    </test>
+</suite>
+<!-- testNG de .xml file ile paralel test yapmak istersek suite tagindan
+ sonra paralel tagi ile kac browserda calistirmak istersek thread-count tagini kullaniriz
+-->

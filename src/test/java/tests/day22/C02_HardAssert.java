@@ -1,4 +1,4 @@
-package tests.Day17;
+package tests.day22;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -6,9 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.TestBaseBeforeMethodAfterMethod;
+import utilities.TestBaseCross;
 
-public class C02_HardAssert extends TestBaseBeforeMethodAfterMethod {
-    @Test(groups = "gp1")
+public class C02_HardAssert extends TestBaseCross {
+    @Test
     public void test01() {
         //1-amazon anasayfaya gidin
         driver.get("https://amazon.com");
